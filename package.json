@@ -1,0 +1,27 @@
+{
+  "name": "nodejs_event_loop",
+  "version": "1.0.0",
+  "description": "Analyse der Node JS Event Loop",
+  "main": "events.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pumuugel82/nodejs_event_loop.git"
+  },
+  "keywords": [
+    "nodejs",
+    "event",
+    "loop",
+    "immediate",
+    "timeout",
+    "nextTick"
+  ],
+  "author": "Christoph Hirte <christoph.hirte@hirte.biz> (www.hirte.biz)",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/pumuugel82/nodejs_event_loop/issues"
+  },
+  "homepage": "https://github.com/pumuugel82/nodejs_event_loop#readme"
+}
