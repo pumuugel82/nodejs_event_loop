@@ -103,12 +103,39 @@ Die 4 Sorten heißen (für mich):
 4. immediate.
 
 Es ist darauf hinzuweisen, dass setTimeout() hier immer mit "0" aufgerufen wurde. Ein Aufruf mit z.B. "1500" würde die Ausführung des Callbacks von setTimeout() und damit den Log-Eintrag an das Ende der Ausgabeliste verlegen. Das ist insofern zu den Ergebnissen oben kein Widerspruch, da der Interpreter ja überprüfen muss, ob der timeout für den Eintrag im timeout-Stack bereits abgelaufen ist. Und nur wenn der timeout abgelaufen ist, dann wird der anhängende Callback sofot aufgeführt. Anderenfalls, falls es keine abgelaufenden Einträge im timeout-Stack gibt, wird mit der Abarbeitung des Immediate-Stacks begonnen.
+Wichtig ist nur, dass die Überprüfung der Einträge im Timeout-Stack vor der Überprüfung der Einträge im Immediate-Stack erfolgen.
+
+## Besondere Beachtung
+
+Der folgende Code-Ausschnitt aus der Funktion "f1()":
+
+    setTimeout(callback,0,"timeout-0: f1().1");
+    setImmediate(callback, "immediate: f1().1");
+    setTimeout(callback,0,"timeout-0: f1().2");
+    setImmediate(callback, "immediate: f1().2");
+
+ ...führt zum Teil zu einer besonderen Ausgabe (Ausschnitt):
+
+    ...
+    timeout-0: f1().1
+    timeout-0: f1().2
+    timeout-0: main().2
+    timeout-0: f2().1
+    timeout-0: f2().2
+    timeout-0: main().3
+    immediate: f1().1
+    immediate: f1().2
+    ...
+
+"timeout-0: f1().1" wird wie erwartet zuerst ausgegeben.
+Es folgt dann aber nicht "immediate: f1().1"!
+Dies erscheint erst viel, viel später!
 
 
 ## Schlussbetrachtung
 
 1. Das obige kann alles stimmen - muss aber nicht.
-2. Kann dann niemals mehr ein neuer Callstack entstehen/abgearbeietet werden? Wenn doch, wie?
-3. Wo lassen sich im Code von C++ der V8-Engine belege für die oben aufgestellten Theorien finden?
+2. Kann denn niemals mehr ein neuer Callstack entstehen/abgearbeietet werden? Wenn doch, wie?
+3. Wo lassen sich im Code von C++ der V8-Engine Belege für die oben aufgestellten Theorien finden?
 
 Christoph Hirte, 27.12.2020
