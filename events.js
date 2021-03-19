@@ -13,7 +13,7 @@
     function f2() {
         process.nextTick(() => console.log("nextTick: f2().veryFirst"));
         console.log("callstack: f2()");
-        setTimeout(callback,0,"timeout-0: f2().1");
+        setTimeout(() => {console.log("timeout-0: f2().1")}, 0);
         setImmediate(callback, "immediate: f2().1");
         setTimeout(callback,0,"timeout-0: f2().2");
         setImmediate(callback, "immediate: f2().2");
